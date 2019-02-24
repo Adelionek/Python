@@ -1,33 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<<<<<<< HEAD
-    <h1>Sing in!</h1>
-=======
     <h1>Sign In</h1>
->>>>>>> 5efb728e2407126287cba4dc0e4a6198b233dbcb
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
             {{ form.username.label }}<br>
-<<<<<<< HEAD
-            {{ form.username(size=32) }}
-            {% for error in form.username.errors %}
-            <p><span style="color:red;">[{{ error }}]</span></p>
-            {% endfor %}
-        </p>
-    <p>
-        {{ form.password.label }}<br>
-        {{ form.password(size=32) }}
-        {% for error in form.password.errors %}
-            <p><span style="color:red;">[{{ error }}]</span></p>
-        {% endfor %}
-    </p>
-    <p>{{ form.remember_me() }}{{ form.remember_me.label }}</p>
-    <p>{{ form.submit }}</p>
-    </form>
-{% endblock %}
-=======
             {{ form.username(size=32) }}<br>
             {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}]</span>
@@ -44,4 +22,3 @@
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}
->>>>>>> 5efb728e2407126287cba4dc0e4a6198b233dbcb
