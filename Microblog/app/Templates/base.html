@@ -12,8 +12,13 @@
             <a href="{{ url_for('index') }}">Home</a>
         </div>
         <div>
-            Logowanie:
+            {% if current_user.is_anonymus %}
+            Logowanie
             <a href="{{ url_for('login') }}">Login</a>
+            {% else %}
+            Wylogowywanieeeeee:
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
 
         </div>
         <hr>
