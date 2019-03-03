@@ -19,12 +19,12 @@ class User(db.Model, UserMixin):
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 
-# one to many relation. posts variable by 'one' side. 1st argument is 'many' table
-# author - we will define an author in each added post
+    # one to many relation. posts variable by 'one' side. 1st argument is 'many' table
+    # author - we will define an author in each added post
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
-# repr tells Python how to print obj of this class
+    # repr tells Python how to print obj of this class
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -50,5 +50,5 @@ class Post(db.Model):
 
 @login.user_loader # callback for current_user
 def load_user(id):
-    return User.query.get(int(id))  # puts the user in db session
+    return User.query.get(int(id))  # puts the user in db session, gets it by primary key
 
