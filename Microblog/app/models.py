@@ -9,7 +9,6 @@ from hashlib import md5
 
 # snake case, so User will be named user. Can add attribute __tablename_
 
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
