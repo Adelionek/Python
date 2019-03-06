@@ -47,7 +47,7 @@ class Post(db.Model):
         return '<Post {}>'.format(self.body)
 
 
-@login.user_loader # callback for current_user
+@login.user_loader  # callback for current_user
 def load_user(id):
     return User.query.get(int(id))  # puts the user in db session, gets it by primary key
 

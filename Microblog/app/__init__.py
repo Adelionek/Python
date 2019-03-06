@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 # flask need to know what is the login view for login
-login.login_view = 'login'  # similar to url_for
+login.login_view = 'login'  # similar to url_for, it tells @login_required decorator where to redirect
 
 
 from app import routes, models, errors
