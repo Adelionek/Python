@@ -27,7 +27,7 @@ class User(db.Model, UserMixin):
         'User', secondary=followers,
         primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
-        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic') # user1.follow(user2) -->  user2.followers()
 
     # one to many relation. posts variable by 'one' side. 1st argument is 'many' table
     # author - we will define an author in each added post
@@ -57,6 +57,15 @@ class User(db.Model, UserMixin):
     def is_following(self, user):
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
+
+    def followed_posts(self):
+        followed = Post.query.join(
+            followers, (followers.c.followed_id == Post.user_id)).filter(
+                followers.c.follower_id == self.id).order_by(
+                    Post.timestamp.desc())
+        own = Post.query.filter_by(user_id=self.id)
+        return followed.union(own).order_by(Post.timestamp.desc())
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
