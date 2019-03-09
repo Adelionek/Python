@@ -31,16 +31,16 @@ class UserModelCase(unittest.TestCase):
         db.session.add(u1)
         db.session.add(u2)
         db.session.commit()
-        self.assertEqual(u1.followed.all(),[])
-        self.assertEqual(u1.followers.all(),[])
+        self.assertEqual(u1.followed.all(), [])
+        self.assertEqual(u1.followers.all(), [])
 
         u1.follow(u2)
         db.session.commit()
         self.assertTrue(u1.is_following(u2))
-        self.assertEqual(u1.followed.count(),1)
+        self.assertEqual(u1.followed.count(), 1)
         self.assertEqual(u1.followed.first().username, 'susan')
-        self.assertEqual(u2.followers.count(),1)
-        self.assertEqual(u2.follwers.first().username, 'john')
+        self.assertEqual(u2.followers.count(), 1)
+        self.assertEqual(u2.followers.first().username, 'john')
 
         u1.unfollow(u2)
         db.session.commit()
@@ -49,14 +49,14 @@ class UserModelCase(unittest.TestCase):
         self.assertEqual(u2.followers.count(), 0)
 
     def test_follow_posts(self):
-        u1 =User(username='john', email='john@example.com')
-        u2 =User(username='susan', email='susan@example.com')
-        u3 =User(username='mary', email='mary@example.com')
-        u4 =User(username='david', email='david@example.com')
+        u1 = User(username='john', email='john@example.com')
+        u2 = User(username='susan', email='susan@example.com')
+        u3 = User(username='mary', email='mary@example.com')
+        u4 = User(username='david', email='david@example.com')
         db.session.add_all([u1, u2, u3, u4])
 
-        #create four posts
-
+        # create four posts
+        now = datetime.utcnow()
         p1 = Post(body="post from john", author=u1, timestamp=now + timedelta(seconds=1))
         p2 = Post(body="post from susan", author=u2, timestamp=now + timedelta(seconds=4))
         p3 = Post(body="post from mary", author=u3, timestamp=now + timedelta(seconds=3))
@@ -77,7 +77,7 @@ class UserModelCase(unittest.TestCase):
         self.assertEqual(f1, [p2, p4, p1])
         self.assertEqual(f2, [p2, p3])
         self.assertEqual(f3, [p3, p4])
-        self.assertEqual(f1, [p4])
+        self.assertEqual(f4, [p4])
 
 
 if __name__ == '__main__':
