@@ -28,9 +28,12 @@ def index():
         return redirect(url_for('index'))
         # now the last request will be GET, so if we click F5 it wont duplicate request
 
-    posts = current_user.followed_posts().all()
+    page = request.args.get('page', 1, type=int)
+    posts = current_user.followed_posts().paginate(
+        page, app.config['POSTS_PER_PAGE'], False
+    )
 
-    return render_template('index.html', title='Home', posts=posts, form=form)
+    return render_template('index.html', title='Home', posts=posts.items, form=form)
 # this makes a callback for {{ user.something}}
 
 
@@ -142,6 +145,9 @@ def unfollow(username):
 @app.route('/explore')
 @login_required
 def explore():
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('index.html', title='Explore', posts=posts)
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE'],False
+    )
+    return render_template('index.html', title='Explore', posts=posts.items)
     # form is no expected, so we dont pass form argument
