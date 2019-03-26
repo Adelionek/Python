@@ -29,11 +29,17 @@ def index():
         # now the last request will be GET, so if we click F5 it wont duplicate request
 
     page = request.args.get('page', 1, type=int)
+    # posts return an pagination element
     posts = current_user.followed_posts().paginate(
         page, app.config['POSTS_PER_PAGE'], False
     )
+    next_url = url_for('index', page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('index', page=posts.prev_num) \
+        if posts.has_prev else None
 
-    return render_template('index.html', title='Home', posts=posts.items, form=form)
+    return render_template('index.html', title='Home', posts=posts.items, form=form, next_url=next_url,
+                           prev_url=prev_url)
 # this makes a callback for {{ user.something}}
 
 
@@ -88,11 +94,14 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404() # returns a db object
-    posts = [
-        {'author': user, 'body': "Test post 1"},
-        {'author': user, 'body': "Test post 2"}
-    ]
-    return render_template('user.html', title='User', posts=posts, user=user)
+    page = request.args.get('page', 1, type=int)
+    posts = user.posts.order_by(Post.timestamp.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('user', username=user.username, page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('user', username=user.username, page=posts.prev_num)\
+        if posts.has_prev else None
+    return render_template('user.html', title='User', posts=posts.items, user=user, next_url=next_url, prev_url=prev_url)
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -146,8 +155,14 @@ def unfollow(username):
 @login_required
 def explore():
     page = request.args.get('page', 1, type=int)
+    # return value is pagination object, items attribute contains list of elements per requested page !
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
-        page, app.config['POSTS_PER_PAGE'],False
+        page, app.config['POSTS_PER_PAGE'], False
     )
-    return render_template('index.html', title='Explore', posts=posts.items)
+    # parameters will be passed as func parameters
+    next_url=url_for('explore', page=posts.next_num) \
+        if posts.has_next else None
+    prev_url=url_for('explore', page=posts.prev_num) \
+        if posts.has_prev else None
+    return render_template('index.html', title='Explore', posts=posts.items, prev_url=prev_url, next_url=next_url)
     # form is no expected, so we dont pass form argument
