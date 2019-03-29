@@ -6,6 +6,7 @@ from flask_login import LoginManager
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
+from flask_mail import Mail
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -15,7 +16,7 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 # flask need to know what is the login view for login
 login.login_view = 'login'  # similar to url_for, it tells @login_required decorator where to redirect
-
+mail = Mail(app)
 
 from app import routes, models, errors
 # register modules with FLASK
