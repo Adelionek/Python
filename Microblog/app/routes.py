@@ -2,7 +2,6 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm
 from flask_login import current_user, login_user, logout_user, login_required
-from app.email import  import send_password_reset_email
 from app.models import User, Post
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -172,7 +171,7 @@ def explore():
 def reset_password_request():
     if current_user.is_authenticated:
         return url_for('index')
-    form = ResetPasswordRequestForm
+    form = ResetPasswordRequestForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
