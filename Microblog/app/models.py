@@ -74,13 +74,13 @@ class User(db.Model, UserMixin):
     # token need to be in string format
 
     @staticmethod # can be invoked directly from class
-    def verify_reset_password_token():
+    def verify_reset_password_token(token):
         try:
             id=jwt.decode(token, app.config['SECRET_KEY'],
                           algorithms=['HS256'])['reset_password']
         except:
             return
-        return U
+        return User.query.get(id)
 
 
 class Post(db.Model):
