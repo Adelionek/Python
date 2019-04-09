@@ -169,7 +169,7 @@ def explore():
     # form is no expected, so we dont pass form argument
 
 
-@app.route('/reset_password_request', methods=['GET','POST'])
+@app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     if current_user.is_authenticated:
         return url_for('index')
@@ -183,6 +183,7 @@ def reset_password_request():
     return render_template('reset_password_request.html', form=form, title='Reset password')
 
 
+# a link clicked in email with token
 @app.route('/reset_password/<token>', methods=['GET','POST'])
 def reset_password(token):
     if current_user.is_authenticated:
@@ -196,4 +197,4 @@ def reset_password(token):
         db.session.commit()
         flash('Your password has been reset')
         return redirect(url_for('login'))
-    return render_template('rest_password.html', form=form)
+    return render_template('reset_password.html', form=form)
