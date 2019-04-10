@@ -1,0 +1,7 @@
+@echo off
+set FLASK_APP=microblog.py
+set MAIL_SERVER=smtp.googlemail.com
+set MAIL_PORT=587
+set MAIL_USE_TLS=1
+set MAIL_USERNAME=adelionek@gmail.com
+set MAIL_PASSWORD=Jebachasla12-
