@@ -16,7 +16,9 @@
     </form>
     {% endif %}
     {% for post in posts %}
-        {% include '_post.html' %}
+        {% if post %}
+            {% include '_post.html' %}
+        {% endif %}
     {% endfor %}
     {% if prev_url %}
         <a href="{{ prev_url }}">Previous</a>
@@ -25,8 +27,5 @@
         <a href="{{ next_url }}">Next</a>
     {% endif%}
 
-{#
-    {{  }}in these braces we type python code
-#}
 
 {% endblock %}

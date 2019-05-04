@@ -161,6 +161,7 @@ def explore():
         page, app.config['POSTS_PER_PAGE'], False
     )
     # parameters will be passed as func parameters
+
     next_url=url_for('explore', page=posts.next_num) \
         if posts.has_next else None
     prev_url=url_for('explore', page=posts.prev_num) \
