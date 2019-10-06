@@ -3,6 +3,7 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_bootstrap import Bootstrap
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
@@ -17,6 +18,7 @@ login = LoginManager(app)
 # flask need to know what is the login view for login
 login.login_view = 'login'  # similar to url_for, it tells @login_required decorator where to redirect
 mail = Mail(app)
+bootstrap = Bootstrap(app)
 
 from app import routes, models, errors
 # register modules with FLASK

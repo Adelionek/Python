@@ -185,7 +185,7 @@ def reset_password_request():
 
 
 # a link clicked in email with token
-@app.route('/reset_password/<token>', methods=['GET','POST'])
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('index'))
