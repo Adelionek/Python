@@ -6,5 +6,8 @@ To run app, clone my repo to some directory. Then open terminal, go to that dire
 SET FLASK_APP=microblog.py (if using mac use "export" instead of SET)
 flask run
 ```
- App should run locally on default address http://127.0.0.1:5000
- You can see photos of app in Wiki !! :)
+ App should run locally on default address http://127.0.0.1:5000  
+ **You can see all photos of app in Wiki page!! :)**    
+ ## Login Page
+![alt text](https://raw.githubusercontent.com/Adelionek/Python/master/Microblog/static/mainpage.JPG)
+ 
