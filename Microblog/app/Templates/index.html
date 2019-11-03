@@ -16,16 +16,26 @@
     </form>
     {% endif %}
     {% for post in posts %}
-        {% if post %}
             {% include '_post.html' %}
-        {% endif %}
     {% endfor %}
-    {% if prev_url %}
-        <a href="{{ prev_url }}">Previous</a>
-    {% endif %}
-    {% if next_url %}
-        <a href="{{ next_url }}">Next</a>
-    {% endif%}
+
+
+
+    <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Newer posts
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    Older posts <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
 
 
 {% endblock %}
