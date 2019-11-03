@@ -7,3 +7,4 @@ SET FLASK_APP=microblog.py (if using mac use "export" instead of SET)
 flask run
 ```
  App should run locally on default address http://127.0.0.1:5000
+ You can see photos of app in Wiki !! :)
