@@ -1,3 +1,3 @@
 # Python
 
-W tym repozytorium znajduje się część z moich projektów które robiłem w trakcie nauki
+This repo contains things that I made while learning Python. Go visit my /Microblog directory and check out my Microblog project !!
